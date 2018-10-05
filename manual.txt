@@ -1,0 +1,124 @@
+Split-tRNA-Search – A program for the detection of splitted tRNA genes
+
+Richard Münch (1) & Lennart Randau (1,2)
+
+(1) Institute of Microbiology, Technical University Braunschweig,
+Spielmannstr. 7, 38106 Brausnchweig, GERMANY
+
+(2) Department of Molecular Biophysics and Biochemistry, Yale University,
+266 Whitney Avenue, New Haven, CT 06520-8114, USA
+
+
+Current release 1.2 (October 2004)
+
+
+BRIEF INTRODUCTION
+
+In some organisms, like the archaeal parasite Nanoarchaeum equitans, 
+tRNA sequences can be split and widely separated over the whole genome.
+Thereby the genes are split into two tRNA-halves after the anticodon-adjacent
+position 37, the normal location of tRNA introns.
+Split-tRNA-Search is a program to detect such separated and tRNA genes by 
+searching both a conserved terminal 5'- and 3' motif of tRNA.
+The information that the 3'-region contains a pairing stretch of 7 nucleotides
+to a reverse complementary part in the 5'-region (the tRNA's acceptorstem) was
+used to identify matching pairs of tRNA-gene halves.
+In a first step all matching pairs within a distinct distance arising from
+unsplit tRNAs are removed. The remaining 5' and 3' matches are used to predict
+possible split tRNAs by similarity of their acceptorstem sequences.
+In a second step the resulting sequences can be verified using tRNAscan-SE
+(Lowe & Eddy, 1997)
+
+
+INSTALLATION
+
+The whole package was developed on a Linux platform by use of PHP and the
+Virtual Footprint (vfp) pattern matching software which was written in C++.
+PHP 4.3 or higher has to be installed.
+
+After unpacking the tarfile, it should be possible to immediately use
+Split-tRNA-Search. A vfp binary is included, if it doesn't work try to compile
+vfp by starting the shell script:
+
+./compile.sh
+
+Position weight matrices (PWMs) were generated from both a conserved, continuous
+3'-region of tRNA genes (nucleotides 54-76) and a 5'-region of tRNA genes
+(nucleotides 1-16) in an alignment of over 4000 tRNA genes (taken from
+Marck & Grosjean, 2003).
+
+The PWMs generated for archea are part of this package and called 
+tDNA1_16.xml and tDNA54_76.xml 
+
+
+INSTRUCTIONS FOR USE
+
+Split-tRNA-Search 1.2 (release date 2004-10-10)
+This program is part of the PRODORIC package http://www.prodoric.com (.net .de)
+(C) Richard Muench & Lennart Randau 2001-2004, Technical University Braunschweig, GERMANY
+email: r.muench@tu-bs.de
+
+Usage: ./sts.php [options] [-p5 <5'-pattern file>] [-p3 <3'-pattern file>] [-s <sequence file>]
+-ms5                 PWM sensitivity of 5'-pattern (the 3'-pattern default=0.9)
+-cs5                 core sensitivity of 5'-pattern (default=0.9)
+-c5                  core size of 5'-pattern (default=5)
+-ms3                 PWM sensitivity of 3'-pattern (default=0.9)
+-cs3                 core sensitivity of 3'-pattern (default=0.9)
+-c3                  core size of 3'-pattern (default=5)
+-m                   number of mismatches (default=1)
+-max                 maximum tDNA length (default=100)
+-min                 minimum tDNA length (default=50)
+-v                   verbose mode
+-?                   this help
+--help               this help
+
+Three arguments are necessary:
+a 5' and 3'-pattern file (XML formatted) and genome sequence file (FASTA formatted)
+
+Example:
+./sts.php -p5 tDNA1_16.xml -p3 tDNA54_76.xml -s Nanoarchaeum.seq
+
+Search parameters can be adjusted by influencing the sensitivity.
+Sensitivity is a value between 0-1 and is defined by the fraction of
+sequences in the positive dataset that is found at a certain score.
+A sensitivity of 1 means that all sequences, that are part of the PWM,
+are found whereas a sensitivity of 0.95 means that only 95% are found.
+A high sensitivity often results in a high number of matches, therefore
+is is better to chose a value slighty lower than 1.
+Further improvements concerning the selectivity of a pattern are made
+by the introduction of a core which is the most conserved part of a
+pattern. Both the core size and core sensitivity can be changed.  
+
+Example:
+./sts.php -p5 tDNA1_16.xml -p3 tDNA54_76.xml -s Nanoarchaeum.seq -ms3 0.95 -c3 8
+
+In this example the 3'-pattern features are changes as the PWM sensitivity
+is increased to 0.95 and the core size of the 3'-pattern is changed to 8.
+
+The assignment of 5'- and 3' motif to one tRNA can be influenced by the number
+of allowed mismatches in the acceptorstem (-m parameter) and minimal and maximal
+distance between these two motifs (-min/-max parameter).
+
+The output is FASTA-formatted with the following information in the FASTA ID
+
+match-number, positions, orientation, score, acceptorstem-mismatches 
+
+Examples:
+>35,471321-471391,+,37.4,0
+>52,331758x327499,-/+,38.61,1
+
+Notes:
+- Split-tRNA-genes are indicated with a 'x' between the 5' and 3'-positions.
+- The orientations of the two fragments in split-tRNA-genes can be different.
+- The score is the sum of scores of the 5'- and 3'-match
+
+
+REFERENCES
+  
+Marck, C. & Grosjean, H. Identification of BHB splicing motifs in 
+intron-containing tRNAs from 18 archaea: evolutionary implications.
+RNA 9, 1516-1531 (2003).
+
+Lowe T. M. & Eddy S. R. tRNAscan-SE: a program for improved detection of
+transfer RNA genes in genomic sequence.
+Nucleic Acids Res. 25, 955-964 (1997) 

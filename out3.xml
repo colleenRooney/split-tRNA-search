@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VfpResult>
+<Sequence ID="AE017199.1 Nanoarchaeum equitans Kin4-M, complete genome" matches="45">
+<Match number="0" startPosition="3266" endPosition="3288" orientation="+" sequence="CCGGTTCAAATCCGGGCCCCGCG" score="21.999" se_score="-5.60967">
+<Site name="TEST" type="1" startPosition="3266" endPosition="3288" orientation="+" score="21.999" core_score="9.82097" >CCGGTTCAAATCCGGGCCCCGCG</Site>
+</Match>
+<Match number="1" startPosition="7002" endPosition="7024" orientation="-" sequence="CGGGTTCGAATCCCGCCGGGCCC" score="25.4087" se_score="-5.99933">
+<Site name="TEST" type="1" startPosition="7002" endPosition="7024" orientation="-" score="25.4087" core_score="9.82097" >CGGGTTCGAATCCCGCCGGGCCC</Site>
+</Match>
+<Match number="2" startPosition="29271" endPosition="29293" orientation="-" sequence="GGGGTTCAAATCCCCCCCGCCCC" score="24.8831" se_score="-6.11733">
+<Site name="TEST" type="1" startPosition="29271" endPosition="29293" orientation="-" score="24.8831" core_score="9.82097" >GGGGTTCAAATCCCCCCCGCCCC</Site>
+</Match>
+<Match number="3" startPosition="35319" endPosition="35341" orientation="-" sequence="CGGGTTCGAATCCCGGCGGGTCC" score="25.3086" se_score="-6.16867">
+<Site name="TEST" type="1" startPosition="35319" endPosition="35341" orientation="-" score="25.3086" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGTCC</Site>
+</Match>
+<Match number="4" startPosition="54081" endPosition="54103" orientation="-" sequence="CGGGTTCGAATCCCGGCGGGCGC" score="25.6302" se_score="-6.73">
+<Site name="TEST" type="1" startPosition="54081" endPosition="54103" orientation="-" score="25.6302" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGCGC</Site>
+</Match>
+<Match number="5" startPosition="54794" endPosition="54816" orientation="+" sequence="GGGGTTCGAATCCCCCCGGCGGC" score="24.7688" se_score="-6.41567">
+<Site name="TEST" type="1" startPosition="54794" endPosition="54816" orientation="+" score="24.7688" core_score="9.82097" >GGGGTTCGAATCCCCCCGGCGGC</Site>
+</Match>
+<Match number="6" startPosition="72032" endPosition="72054" orientation="-" sequence="CCGGTTCGAATCCGGGCGGGGCT" score="22.1562" se_score="-6.075">
+<Site name="TEST" type="1" startPosition="72032" endPosition="72054" orientation="-" score="22.1562" core_score="9.82097" >CCGGTTCGAATCCGGGCGGGGCT</Site>
+</Match>
+<Match number="7" startPosition="111106" endPosition="111128" orientation="+" sequence="CGGGTTCGAATCCCGGCGGGCGC" score="25.6302" se_score="-6.46967">
+<Site name="TEST" type="1" startPosition="111106" endPosition="111128" orientation="+" score="25.6302" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGCGC</Site>
+</Match>
+<Match number="8" startPosition="118812" endPosition="118834" orientation="-" sequence="CGGGTTCGAATCCCGCCCGGGGC" score="25.501" se_score="-6.00933">
+<Site name="TEST" type="1" startPosition="118812" endPosition="118834" orientation="-" score="25.501" core_score="9.82097" >CGGGTTCGAATCCCGCCCGGGGC</Site>
+</Match>
+<Match number="9" startPosition="120720" endPosition="120742" orientation="-" sequence="CGGGTTCGAATCCCGGCGGGTCC" score="25.3086" se_score="-6.312">
+<Site name="TEST" type="1" startPosition="120720" endPosition="120742" orientation="-" score="25.3086" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGTCC</Site>
+</Match>
+<Match number="10" startPosition="135281" endPosition="135303" orientation="-" sequence="CGGGTTCAAATCCCGGCGGCCCC" score="25.5939" se_score="-6.103">
+<Site name="TEST" type="1" startPosition="135281" endPosition="135303" orientation="-" score="25.5939" core_score="9.82097" >CGGGTTCAAATCCCGGCGGCCCC</Site>
+</Match>
+<Match number="11" startPosition="138225" endPosition="138247" orientation="-" sequence="CGGGTTCGAATCCCGCCGGGCCC" score="25.4087" se_score="-5.92933">
+<Site name="TEST" type="1" startPosition="138225" endPosition="138247" orientation="-" score="25.4087" core_score="9.82097" >CGGGTTCGAATCCCGCCGGGCCC</Site>
+</Match>
+<Match number="12" startPosition="152055" endPosition="152077" orientation="+" sequence="GGGGTTCGAATCCCCCCGGCCCC" score="24.7647" se_score="-5.88933">
+<Site name="TEST" type="1" startPosition="152055" endPosition="152077" orientation="+" score="24.7647" core_score="9.82097" >GGGGTTCGAATCCCCCCGGCCCC</Site>
+</Match>
+<Match number="13" startPosition="161967" endPosition="161989" orientation="-" sequence="CGGGTCCTAAGCCCGACCCCTTC" score="21.15" se_score="-5.85667">
+<Site name="TEST" type="1" startPosition="161967" endPosition="161989" orientation="-" score="21.15" core_score="9.82097" >CGGGTCCTAAGCCCGACCCCTTC</Site>
+</Match>
+<Match number="14" startPosition="162007" endPosition="162029" orientation="+" sequence="GGGGTTCGAATCCCCGCGGCCGC" score="24.9862" se_score="-6.52833">
+<Site name="TEST" type="1" startPosition="162007" endPosition="162029" orientation="+" score="24.9862" core_score="9.82097" >GGGGTTCGAATCCCCGCGGCCGC</Site>
+</Match>
+<Match number="15" startPosition="164057" endPosition="164079" orientation="+" sequence="GGGGTTCGAATCCCCCCGCCCGG" score="23.1048" se_score="-5.97167">
+<Site name="TEST" type="1" startPosition="164057" endPosition="164079" orientation="+" score="23.1048" core_score="9.82097" >GGGGTTCGAATCCCCCCGCCCGG</Site>
+</Match>
+<Match number="16" startPosition="164170" endPosition="164192" orientation="-" sequence="GGGGTTCGAATCCCCGCGGGCCC" score="24.9363" se_score="-5.97167">
+<Site name="TEST" type="1" startPosition="164170" endPosition="164192" orientation="-" score="24.9363" core_score="9.82097" >GGGGTTCGAATCCCCGCGGGCCC</Site>
+</Match>
+<Match number="17" startPosition="179579" endPosition="179601" orientation="-" sequence="CGGGTTCGAATCCCGCCGGGCCC" score="25.4087" se_score="-6.392">
+<Site name="TEST" type="1" startPosition="179579" endPosition="179601" orientation="-" score="25.4087" core_score="9.82097" >CGGGTTCGAATCCCGCCGGGCCC</Site>
+</Match>
+<Match number="18" startPosition="220542" endPosition="220564" orientation="+" sequence="CGGGTTCGAATCCCGCCGGGCCC" score="25.4087" se_score="-6.559">
+<Site name="TEST" type="1" startPosition="220542" endPosition="220564" orientation="+" score="25.4087" core_score="9.82097" >CGGGTTCGAATCCCGCCGGGCCC</Site>
+</Match>
+<Match number="19" startPosition="225693" endPosition="225715" orientation="+" sequence="CGGGTTCGAATCCCGGCGGGCCC" score="25.572" se_score="-6.206">
+<Site name="TEST" type="1" startPosition="225693" endPosition="225715" orientation="+" score="25.572" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGCCC</Site>
+</Match>
+<Match number="20" startPosition="245992" endPosition="246014" orientation="-" sequence="CGGGTTCGAATCCCGCCGGCGGC" score="25.4045" se_score="-5.932">
+<Site name="TEST" type="1" startPosition="245992" endPosition="246014" orientation="-" score="25.4045" core_score="9.82097" >CGGGTTCGAATCCCGCCGGCGGC</Site>
+</Match>
+<Match number="21" startPosition="253362" endPosition="253384" orientation="-" sequence="GGGGTTCGAATCCCCCCGGCGGC" score="24.7688" se_score="-6.07067">
+<Site name="TEST" type="1" startPosition="253362" endPosition="253384" orientation="-" score="24.7688" core_score="9.82097" >GGGGTTCGAATCCCCCCGGCGGC</Site>
+</Match>
+<Match number="22" startPosition="259174" endPosition="259196" orientation="+" sequence="CGGGTTCAAATCCCGGCCGGGGC" score="25.6945" se_score="-6.39467">
+<Site name="TEST" type="1" startPosition="259174" endPosition="259196" orientation="+" score="25.6945" core_score="9.82097" >CGGGTTCAAATCCCGGCCGGGGC</Site>
+</Match>
+<Match number="23" startPosition="259231" endPosition="259253" orientation="-" sequence="CGGGTTCGAATCCCGGCGGGTCC" score="25.3086" se_score="-6.39467">
+<Site name="TEST" type="1" startPosition="259231" endPosition="259253" orientation="-" score="25.3086" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGTCC</Site>
+</Match>
+<Match number="24" startPosition="260580" endPosition="260602" orientation="-" sequence="GGGGTTCGAATCCCCCACGGCCC" score="23.3816" se_score="-6.15033">
+<Site name="TEST" type="1" startPosition="260580" endPosition="260602" orientation="-" score="23.3816" core_score="9.82097" >GGGGTTCGAATCCCCCACGGCCC</Site>
+</Match>
+<Match number="25" startPosition="260610" endPosition="260632" orientation="+" sequence="CGGGTCCGAAGCCCGCCGCTCTA" score="20.1888" se_score="-6.101">
+<Site name="TEST" type="1" startPosition="260610" endPosition="260632" orientation="+" score="20.1888" core_score="9.82097" >CGGGTCCGAAGCCCGCCGCTCTA</Site>
+</Match>
+<Match number="26" startPosition="278932" endPosition="278954" orientation="-" sequence="GGGGTTCGAATCCCCGCGGCCGC" score="24.9862" se_score="-6.575">
+<Site name="TEST" type="1" startPosition="278932" endPosition="278954" orientation="-" score="24.9862" core_score="9.82097" >GGGGTTCGAATCCCCGCGGCCGC</Site>
+</Match>
+<Match number="27" startPosition="304119" endPosition="304141" orientation="+" sequence="GGGGTTCGAATCCCCGCGGCCGC" score="24.9862" se_score="-6.08233">
+<Site name="TEST" type="1" startPosition="304119" endPosition="304141" orientation="+" score="24.9862" core_score="9.82097" >GGGGTTCGAATCCCCGCGGCCGC</Site>
+</Match>
+<Match number="28" startPosition="308595" endPosition="308617" orientation="+" sequence="GGGGTTCGAATCCCCCCGGCGGC" score="24.7688" se_score="-6.32167">
+<Site name="TEST" type="1" startPosition="308595" endPosition="308617" orientation="+" score="24.7688" core_score="9.82097" >GGGGTTCGAATCCCCCCGGCGGC</Site>
+</Match>
+<Match number="29" startPosition="309728" endPosition="309750" orientation="+" sequence="CGGGTTCGAATCCCGCCGGGCCC" score="25.4087" se_score="-5.61467">
+<Site name="TEST" type="1" startPosition="309728" endPosition="309750" orientation="+" score="25.4087" core_score="9.82097" >CGGGTTCGAATCCCGCCGGGCCC</Site>
+</Match>
+<Match number="30" startPosition="322939" endPosition="322961" orientation="-" sequence="CGGGTTCGAATCCCGGCGGGCGC" score="25.6302" se_score="-6.38767">
+<Site name="TEST" type="1" startPosition="322939" endPosition="322961" orientation="-" score="25.6302" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGCGC</Site>
+</Match>
+<Match number="31" startPosition="327477" endPosition="327499" orientation="+" sequence="CGGGTTCGAATCCCGCCGGCGGC" score="25.4045" se_score="-6.00234">
+<Site name="TEST" type="1" startPosition="327477" endPosition="327499" orientation="+" score="25.4045" core_score="9.82097" >CGGGTTCGAATCCCGCCGGCGGC</Site>
+</Match>
+<Match number="32" startPosition="347778" endPosition="347800" orientation="-" sequence="CGGGTTCGAATCCCGCCGGCGGC" score="25.4045" se_score="-6.55867">
+<Site name="TEST" type="1" startPosition="347778" endPosition="347800" orientation="-" score="25.4045" core_score="9.82097" >CGGGTTCGAATCCCGCCGGCGGC</Site>
+</Match>
+<Match number="33" startPosition="356575" endPosition="356597" orientation="+" sequence="CCGGTTCGAATCCGGGCGGGGCT" score="22.1562" se_score="-6.09367">
+<Site name="TEST" type="1" startPosition="356575" endPosition="356597" orientation="+" score="22.1562" core_score="9.82097" >CCGGTTCGAATCCGGGCGGGGCT</Site>
+</Match>
+<Match number="34" startPosition="380329" endPosition="380351" orientation="-" sequence="GGGGTTCGAATCCCCGCCGGCCC" score="25.0245" se_score="-6.00433">
+<Site name="TEST" type="1" startPosition="380329" endPosition="380351" orientation="-" score="25.0245" core_score="9.82097" >GGGGTTCGAATCCCCGCCGGCCC</Site>
+</Match>
+<Match number="35" startPosition="407578" endPosition="407600" orientation="-" sequence="GGGGTTCGAATCCCCGCGGGCCC" score="24.9363" se_score="-6.507">
+<Site name="TEST" type="1" startPosition="407578" endPosition="407600" orientation="-" score="24.9363" core_score="9.82097" >GGGGTTCGAATCCCCGCGGGCCC</Site>
+</Match>
+<Match number="36" startPosition="409258" endPosition="409280" orientation="+" sequence="CGGGTTCGAATCCCGGCGGGGGC" score="25.5761" se_score="-5.73467">
+<Site name="TEST" type="1" startPosition="409258" endPosition="409280" orientation="+" score="25.5761" core_score="9.82097" >CGGGTTCGAATCCCGGCGGGGGC</Site>
+</Match>
+<Match number="37" startPosition="417026" endPosition="417048" orientation="-" sequence="CCGGTTCGAATCCGGGCCCGGGC" score="23.5073" se_score="-5.86133">
+<Site name="TEST" type="1" startPosition="417026" endPosition="417048" orientation="-" score="23.5073" core_score="9.82097" >CCGGTTCGAATCCGGGCCCGGGC</Site>
+</Match>
+<Match number="38" startPosition="427483" endPosition="427505" orientation="+" sequence="CGGGTTCGAATCCCGCCGGGCCC" score="25.4087" se_score="-6.05">
+<Site name="TEST" type="1" startPosition="427483" endPosition="427505" orientation="+" score="25.4087" core_score="9.82097" >CGGGTTCGAATCCCGCCGGGCCC</Site>
+</Match>
+<Match number="39" startPosition="444749" endPosition="444771" orientation="-" sequence="GGGGTTCGAATCCCCGCGGGCCC" score="24.9363" se_score="-6.01867">
+<Site name="TEST" type="1" startPosition="444749" endPosition="444771" orientation="-" score="24.9363" core_score="9.82097" >GGGGTTCGAATCCCCGCGGGCCC</Site>
+</Match>
+<Match number="40" startPosition="471264" endPosition="471286" orientation="+" sequence="GGGGTTCGAATCCCCCCGGCGGC" score="24.7688" se_score="-6.32133">
+<Site name="TEST" type="1" startPosition="471264" endPosition="471286" orientation="+" score="24.7688" core_score="9.82097" >GGGGTTCGAATCCCCCCGGCGGC</Site>
+</Match>
+<Match number="41" startPosition="471369" endPosition="471391" orientation="+" sequence="GGGGTTCGAATCCCCGCGGGCCC" score="24.9363" se_score="-5.98333">
+<Site name="TEST" type="1" startPosition="471369" endPosition="471391" orientation="+" score="24.9363" core_score="9.82097" >GGGGTTCGAATCCCCGCGGGCCC</Site>
+</Match>
+<Match number="42" startPosition="476905" endPosition="476927" orientation="+" sequence="GGGGTTCGAATCCCCGCGGCCGC" score="24.9862" se_score="-6.629">
+<Site name="TEST" type="1" startPosition="476905" endPosition="476927" orientation="+" score="24.9862" core_score="9.82097" >GGGGTTCGAATCCCCGCGGCCGC</Site>
+</Match>
+<Match number="43" startPosition="486399" endPosition="486421" orientation="+" sequence="GGGGTTCGAATCCCCCCGGCGGC" score="24.7688" se_score="-6.43433">
+<Site name="TEST" type="1" startPosition="486399" endPosition="486421" orientation="+" score="24.7688" core_score="9.82097" >GGGGTTCGAATCCCCCCGGCGGC</Site>
+</Match>
+<Match number="44" startPosition="487041" endPosition="487063" orientation="+" sequence="CGGGTTCAAATCCCGGCGGGGGC" score="25.6064" se_score="-5.93433">
+<Site name="TEST" type="1" startPosition="487041" endPosition="487063" orientation="+" score="25.6064" core_score="9.82097" >CGGGTTCAAATCCCGGCGGGGGC</Site>
+</Match>
+</Sequence>
+</VfpResult>

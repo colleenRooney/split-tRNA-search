@@ -1,0 +1,409 @@
+#!/usr/bin/php
+<?php
+//---------------------------------------------------------------------
+// split-tRNA-Search
+// Description: search for separated tRNA gene halves
+// Requirements: PHP 4/5, Virtual Footprint 
+// Version: 1.0
+// Author(s): Richard Münch
+// Email: r.muench@tu-bs.de
+// Address: Technical University Braunschweig, Institute of Microbiology
+//          Spielmannstr. 7, 38106 Brauschweig, GERMANY
+// Web: http://www.prodoric.com (.net .de)  
+// last change: 2004-10-04
+// example call: ./sts.php [-p3 <3'-pattern file>]-p5  tDNA.txt -r result.fasta -k A -s 01 -p1 54 -p2 76 -o 
+//---------------------------------------------------------------------
+// Edited by Colleen Rooney crooney@pdx.edu
+//---------------------------------------------------------------------
+
+// edited 2018 Colleen Rooney
+$PWD = getenv('PWD');
+$HOME = getenv('HOME');
+$INSTALL_PATH = "/home/crooney/split-trna-search/";
+// end edit
+
+$version="1.2"; $release="release date 2004-10-10";
+
+$argnr=$_SERVER["argc"]; //number of command line arguments
+$arg=$_SERVER["argv"];   //array of command line arguments
+
+//default parameters:
+//path:
+// edited 2018 Colleen Rooney
+$vfp_path=$INSTALL_PATH;
+$pattern_path="";
+$sequence_path="";
+$output_path=$PWD."/";
+// end edit
+$exec_option=" -v";
+$decsep=".";         //decimal seperator (floating point symbol) for score (set $decsep="," for comma)
+$decnum=2;           //number of decimals 
+$verbose_mode=false; //do not show messages
+$counter=0;          //counter for number of found tDNAs
+
+//PWM parameters:
+$ms5="0.95"; $cs5="0.95"; $core5="5"; //default 5' PWM parameters
+$ms3="0.95"; $cs3="0.95"; $core3="5"; //default 3' PWM parameters
+$mism=1;                              //number of allowed mismatches
+$max_length=100;                      //maximum tDNA length
+$min_length=50;                       //minimum tDNA length 
+$frag_extension=70;                   //fragment extension size
+
+//temporary file names:
+$tmp_path="/tmp/";
+$tmp_pattern_file5="tmp5.xml";
+$tmp_pattern_file3="tmp3.xml";
+$output_file5="out5.xml";
+$output_file3="out3.xml";
+
+//print program head:
+//
+//if no arguments or help-argument print program header:
+if (($argnr==1)||($arg[1]=="-?")||($arg[1]=="--help")) {
+  echo "Split-tRNA-Search ".$version." (".$release.")\n"; 
+  echo "This program is part of the PRODORIC package http://www.prodoric.com (.net .de)\n";
+  echo "(C) Richard Muench & Lennart Randau 2001-2004, Technical University Braunschweig, GERMANY\n";
+  echo "email: r.muench@tu-bs.de\n";
+  echo "Edited by Colleen Rooney 2018, Portland State University, USA\n";
+  echo "email: crooney@pdx.edu\n\n";
+  echo "Usage: sts [options] [-p5 <5'-pattern file>] [-p3 <3'-pattern file>] [-s <sequence file>]\n";
+  echo "-ms5                 PWM sensitivity of 5'-pattern (default=0.9)\n";
+  echo "-cs5                 core sensitivity of 5'-pattern (default=0.9)\n";
+  echo "-c5                  core size of 5'-pattern (default=5)\n";
+  echo "-ms3                 PWM sensitivity of 3'-pattern (default=0.9)\n";
+  echo "-cs3                 core sensitivity of 3'-pattern (default=0.9)\n";
+  echo "-c3                  core size of 3'-pattern (default=5)\n"; 
+  echo "-m                   number of mismatches (default=1)\n";
+  echo "-max                 maximum tDNA length (default=100)\n";
+  echo "-min                 minimum tDNA length (default=50)\n";
+  // edited 2018 Colleen Rooney
+  echo "-o                   directory to write output files (default=\$PWD)\n";
+  // end edit
+  echo "-v                   verbose mode\n";
+  echo "-?                   this help\n";
+  echo "--help               this help\n";
+  echo "\n";
+  die; // abort program if no arguments were set by command line
+} //if  
+
+
+echo "Split-tRNA-Search ".$version." (".$release.")\n"; 
+
+//Get command line parameters:
+for ($i=0; $i<$argnr; $i++) {
+  switch ($arg[$i]) {
+    // edited 2018 Colleen Rooney
+    case "-o":    //set output directory
+      $i++;
+      if (file_exists($arg[$i])) {
+        $output_path=$arg[$i]."/";  
+      } else {
+        echo "The path $arg[$i] does not exist\n";
+        die;
+      }
+      break;
+    // end edit      
+    case "-p5": //5' pattern file (XML formatted)
+      $i++;
+      $pattern_file5=$arg[$i]; 
+    break;
+    case "-p3": //3' pattern file (XML formatted)
+      $i++;
+      $pattern_file3=$arg[$i]; 
+    break;
+    case "-s": //sequence file (FASTA formatted)
+      $i++;
+      $sequence_file=$arg[$i]; 
+    break;
+    case "-ms5": //5' matrix sensitivity 
+      $i++;
+      $ms5=$arg[$i];
+    break;
+    case "-cs5": //5' core sensitivity
+      $i++;
+      $cs5=$arg[$i];
+    break;
+    case "-c5":  //5' core size
+      $i++;
+      $core5=$arg[$i];
+    break;
+    case "-ms3": //3' matrix sensitivity 
+      $i++;
+      $ms3=$arg[$i];
+    break;
+    case "-cs3": //3' core sensitivity
+      $i++;
+      $cs3=$arg[$i];
+    break;
+    case "-c3":  //3' core size
+      $i++;
+      $core3=$arg[$i];
+    break;
+    case "-m":  //number of mismatches
+      $i++;
+      $mism=$arg[$i];
+    break;    
+    case "-min":  //number of mismatches
+      $i++;
+      $min_length=$arg[$i];
+    break;    
+    case "-max":  //maximum tDNA length
+      $i++;
+      $max_length=$arg[$i];
+    break;        
+    case "-v":    //set verbose mode
+      $verbose_mode=true;  
+    break;        
+  } //switch
+} //for
+
+/*
+$sequence_file="Nanoarchaeum_wg.seq";
+$pattern_file5="tDNA1_16.xml";
+$pattern_file3="tDNA54_76.xml";
+*/
+
+
+//----------------------------------------------------------------------
+//adjust sensitivity of pattern data and write to temporary pattern file
+//----------------------------------------------------------------------
+//read 5'-pattern file
+$data_array_5=file($pattern_path.$pattern_file5);
+//get position of 2nd "
+$endpos=strpos($data_array_5[2], "\"",strpos($data_array_5[2], "\"")+1);
+//insert sensitivity thresholds
+$data_array_5[2]=substr($data_array_5[2],0,$endpos+1)." msens=\"".$ms5."\" csens=\"".$cs5."\" core=\"".$core5."\">\n";
+//create 5'-pattern string
+$data5=implode("",$data_array_5);
+//write data to temporary pattern file
+$handle = fopen ($tmp_path.$tmp_pattern_file5, "w");
+fwrite($handle, $data5);$tmp_pattern_file5="tmp5.xml";
+$tmp_pattern_file3="tmp3.xml";
+
+
+$output_file5="out5.xml";
+$output_file3="out3.xml";
+
+fclose($handle);
+
+//read 3'-pattern file
+$data_array_3=file($pattern_path.$pattern_file3);
+//get position of 2nd "
+$endpos=strpos($data_array_3[2], "\"",strpos($data_array_3[2], "\"")+1);
+//insert sensitivity thresholds
+$data_array_3[2]=substr($data_array_3[2],0,$endpos+1)." msens=\"".$ms3."\" csens=\"".$cs3."\" core=\"".$core3."\">\n";
+//create 3'-pattern string
+$data3=implode("",$data_array_3);
+//write data to temporary pattern file
+$handle = fopen ($tmp_path.$tmp_pattern_file3, "w");
+fwrite($handle, $data3);
+fclose($handle);
+
+//Execute Virtual Footprint 5'-pattern:
+//echo $vfp_path."vfp -p ".$pattern_path.$tmp_pattern_file5." -s ".$sequence_path.$sequence_file." -o ".
+//     $output_path.$output_file5.$exec_option."\n";
+// edited 2018 Colleen Rooney
+exec($vfp_path."vfp -p ".$tmp_path.$tmp_pattern_file5." -s ".$sequence_path.$sequence_file." -o ".
+     $output_path.$output_file5.$exec_option);
+// end edit     
+
+
+//Execute Virtual Footprint 3'-pattern:
+//echo $vfp_path."vfp -p ".$pattern_path.$tmp_pattern_file3." -s ".$sequence_path.$sequence_file." -o ".
+//     $output_path.$output_file3.$exec_option."\n";
+// edited 2018 Colleen Rooney
+exec($vfp_path."vfp -p ".$tmp_path.$tmp_pattern_file3." -s ".$sequence_path.$sequence_file." -o ".
+     $output_path.$output_file3.$exec_option);
+//end edit
+
+     
+//Parse vfp results (XML formatted):
+$output_files=array($output_file5,$output_file3);
+for ($i=0; $i<2; $i++) { //loop including both patterns
+
+  $xml_data=file_get_contents($output_path.$output_files[$i]); //get 5' results 
+  $match_arr=array();
+  $match_nr=0;
+
+  //create sax parser with data and element handler:
+  $xml_sax_parser=xml_parser_create(); //initialise XML parser (SAX)
+  xml_set_character_data_handler($xml_sax_parser, 'get_Data');
+  xml_set_element_handler($xml_sax_parser, 'start_elem','end_elem');
+
+  //start parsing...
+  if (!xml_parse($xml_sax_parser, $xml_data)){
+    die(sprintf('XML error: %s al line %d',
+    xml_error_string(xml_get_error_code($xml_sax_parser)),
+    xml_get_current_line_number($xml_sax_parser))
+    );
+  }
+
+  //free memory for XML parser
+  xml_parser_free($xml_sax_parser);
+
+  if (!$i) $match_array5=$match_arr; else $match_array3=$match_arr;
+
+} //for
+
+
+//read genome file (FASTA formatted)
+$genome_arr=file($sequence_path.$sequence_file);                     //read FASTA file into array
+array_shift($genome_arr);                                            //delete FASTA ID
+array_walk($genome_arr, create_function('&$arr','$arr=trim($arr);'));//trim each array element  
+$genome_sequence=implode("",$genome_arr);                            //generate genome sequence string
+
+
+//find unsplitted tDNAs:
+$splitted5=array();
+for ($i=0; $i<sizeof($match_array5); $i++) {
+  $hit=false;
+  //5' acceptor arm
+  $acc_arm5=substr($match_array5[$i][4],0,6);
+  for ($j=0; $j<sizeof($match_array3); $j++) {
+    $acc_arm3=rev_comp(substr($match_array3[$j][4],-6));
+    
+    if ($match_array5[$i][2]=="+") {
+      $start_pos=$match_array5[$i][0];
+      $end_pos  =$match_array3[$j][1];
+    }  
+    else {
+      $start_pos=$match_array3[$j][0];
+      $end_pos  =$match_array5[$i][1];
+    }
+    $tDNA_length=$end_pos-$start_pos+1;
+    
+    $mism_nr=mism($acc_arm5,$acc_arm3);
+    if (($mism_nr<=$mism)&&($tDNA_length<=$max_length)&&
+        ($tDNA_length>=$min_length)&&($match_array5[$i][2]==$match_array3[$j][2])) {
+       $counter++;
+       $score=$match_array5[$i][3]+$match_array3[$j][3]; //number_format($attrs[SCORE], $decnum, $decsep, "")
+       echo ">".$counter.",".$start_pos."-".$end_pos.",".$match_array5[$i][2].",".$score.",".$mism_nr."\n";	
+       echo substr($genome_sequence,$start_pos-1,$end_pos-$start_pos+1)."\n";
+       array_splice ($match_array3, $j,1);
+       $hit=true;
+       break;
+    }
+    
+  }
+  if (!$hit) array_push($splitted5,$i); //generate a list of unoccupied 5'-halves
+    
+}
+
+//generate array of unoccupied 5'-halves
+$tmp_arr=array(); //temporary array
+for ($i=0; $i<sizeof($splitted5); $i++) {
+  array_push($tmp_arr,$match_array5[$splitted5[$i]]);
+}
+$match_array5=$tmp_arr;
+
+
+//find splitted tDNAs
+$splitted5=array();
+for ($i=0; $i<sizeof($match_array5); $i++) {
+  $hit=false;
+  //5' acceptor arm
+  $acc_arm5=substr($match_array5[$i][4],0,6);
+  if ($match_array5[$i][2]=="+") {
+    $part5=substr($genome_sequence,$match_array5[$i][0]-1,$frag_extension);
+    $start_pos=$match_array5[$i][0];
+  }  
+  else {
+    $part5=rev_comp(substr($genome_sequence,$match_array5[$i][1]-$frag_extension,$frag_extension));
+    $start_pos=$match_array5[$i][1];
+  }  
+  for ($j=0; $j<sizeof($match_array3); $j++) {
+    $acc_arm3=rev_comp(substr($match_array3[$j][4],-6));
+    $mism_nr=mism($acc_arm5,$acc_arm3);
+    if ($mism_nr<=$mism) {
+       if ($match_array3[$j][2]=="+") {
+         $part3=substr($genome_sequence,$match_array3[$j][1]-$frag_extension,$frag_extension);
+         $end_pos=$match_array3[$j][1];
+       } else {
+         $part3=rev_comp(substr($genome_sequence,$match_array3[$j][0]-1,$frag_extension));
+	 $end_pos=$match_array3[$j][0];
+       }	
+       $counter++;
+       $score=$match_array5[$i][3]+$match_array3[$j][3];
+       echo ">".$counter.",".$start_pos."x".$end_pos.",".$match_array5[$i][2]."/".$match_array3[$j][2].",".
+       $score.",".$mism_nr."\n";
+       echo $part5.$part3."\n";
+      }
+    
+    }
+}
+
+
+/*
+echo "5-Rest: ".sizeof($match_array5)."\n";
+for ($i=0; $i<sizeof($match_array5); $i++) {
+  echo $match_array5[$i][4]."\n";
+}
+echo "3-Rest\n";
+for ($i=0; $i<sizeof($match_array3); $i++) {
+  echo $match_array3[$i][4]."\n";
+}
+*/
+
+//XML handler functions
+function start_elem($parser, $name, $attrs) {
+//start of XML element
+
+//global variables
+global $match_arr;
+global $match_nr;
+global $decnum;
+global $decsep;
+
+  //parse genome_no and genome accession number
+  if ($name=="SEQUENCE") {
+  } //if
+
+  //parse site information (match number)
+  if ($name=="MATCH") {
+      
+// edited 2018 Colleen Rooney
+    $match_arr[$match_nr][0]=intval($attrs['STARTPOSITION']);
+    $match_arr[$match_nr][1]=intval($attrs['ENDPOSITION']);
+    $match_arr[$match_nr][2]=$attrs['ORIENTATION'];                                //match orientation (strand)
+    $match_arr[$match_nr][3]=number_format($attrs['SCORE'], $decnum, $decsep, ""); //match score
+    $match_arr[$match_nr][4]=$attrs['SEQUENCE'];                                   //match (overall-) sequence
+// end edit 
+    $match_nr++;
+ 	  
+  } //if
+  
+  //parse site information (start-/endposition, orientation, score)
+  if ($name=="SITE") {
+  } //if
+
+} //function
+
+function end_elem($parser, $name) {
+//end of XML element
+} //function
+
+function get_Data($parser, $xml_data) {
+//XML data
+} //function     
+
+function rev_comp($str) {
+//-------------------------------------------------//
+//Calculate reverse complement of a DNA sequence
+//$str: DNA sequence
+//-------------------------------------------------//
+return strtr(strrev($str),"ACTG", "TGAC");
+}
+
+function mism($str1, $str2) {
+//-------------------------------------------------//
+// Return the number of mismatches of two strings
+//-------------------------------------------------//
+$mism_count=0;
+for ($i=0; $i<strlen($str1); $i++) { 
+  if (substr($str1,$i,1)!=substr($str2,$i,1)) $mism_count++;
+}
+return $mism_count;
+}
+
+
+?>
